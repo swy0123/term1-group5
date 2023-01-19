@@ -19,19 +19,19 @@ public class Solution {
 				}
 			}
 			
-			int cnt = 1;
+			int cnt, gap;
+			// 등차수열 활용
 			for (int i = 0; i < farm.length; i++) {
 				if (i <= n / 2) {
-					int gap = (n - cnt) / 2;
+					cnt = 2 * (i + 1) - 1;
+					gap = (n - cnt) / 2;
 					for (int j = gap; j < gap + cnt; j++) {
 						res += farm[i][j];
 					}
-					cnt += 2;
-					if (i == n / 2) cnt = n;
 				}
 				else {
-					cnt -= 2;
-					int gap = (n - cnt) / 2;
+					cnt = 2 * (n - i) - 1;
+					gap = (n - cnt) / 2;
 					for (int j = gap; j < gap + cnt; j++) {
 						res += farm[i][j];
 					}
