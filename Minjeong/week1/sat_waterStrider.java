@@ -43,7 +43,7 @@ public class Solution {
                 for (int i = 0; i < 3; i++, jump--) {
                     x += (movement[dir][0] * jump);
                     y += (movement[dir][1] * jump);
-                    if (x < 0 || x >= n || y < 0 || y >= n) continue;
+                    if (x < 0 || x >= n || y < 0 || y >= n) break;
                     if (arr[x][y]) {
                         res = waterStrider.num;
                         break out;
