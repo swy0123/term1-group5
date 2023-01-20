@@ -25,27 +25,27 @@ public class Solution {
             int n, cnt, res = 0;
             n = sc.nextInt();
             cnt = sc.nextInt();
-            WaterStrider[] points = new WaterStrider[cnt];
+            WaterStrider[] waterStriders = new WaterStrider[cnt];
             boolean[][] arr = new boolean[n][n];
 
             for (int i = 0; i < cnt; i++) {
                 int x = sc.nextInt();
                 int y = sc.nextInt();
                 int direction = sc.nextInt();
-                points[i] = new WaterStrider(x, y, direction, i + 1);
+                waterStriders[i] = new WaterStrider(x, y, direction, i + 1);
             }
 
-            out: for (WaterStrider point: points) {
-                int x = point.x;
-                int y = point.y;
-                int dir = point.direction - 1;
+            out: for (WaterStrider waterStrider: waterStriders) {
+                int x = waterStrider.x;
+                int y = waterStrider.y;
+                int dir = waterStrider.direction - 1;
                 int jump = 3;
                 for (int i = 0; i < 3; i++, jump--) {
                     x += (movement[dir][0] * jump);
                     y += (movement[dir][1] * jump);
                     if (x < 0 || x >= n || y < 0 || y >= n) continue;
                     if (arr[x][y]) {
-                        res = point.num;
+                        res = waterStrider.num;
                         break out;
                     }
                     arr[x][y] = true;
