@@ -38,6 +38,10 @@ public class Solution {
             out: for (WaterStrider waterStrider: waterStriders) {
                 int x = waterStrider.x;
                 int y = waterStrider.y;
+                if (arr[x][y]) {
+                    res = waterStrider.num;
+                    break;
+                }
                 int dir = waterStrider.direction - 1;
                 int jump = 3;
                 for (int i = 0; i < 3; i++, jump--) {
