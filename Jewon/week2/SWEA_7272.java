@@ -1,7 +1,8 @@
-package IM1;
+package week2;
 
 import java.util.Scanner;
 
+//안경이 없어!
 public class SWEA_7272 {
 
 	static String[] strs = { "CEFGHIJKLMNSTUVWXYZ", "ADOPQR", "B" };

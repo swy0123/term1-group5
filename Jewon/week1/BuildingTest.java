@@ -1,4 +1,4 @@
-package com.ssafy.ws.step3;
+package week1;
 
 import java.util.Scanner;
 
