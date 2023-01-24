@@ -5,7 +5,7 @@ import java.util.Scanner;
 // 선을 밟아도 넘어가는건가?
 
 public class MazeArrivalPoint {
-	
+
 	// 북 동 남 서
 	static int[][] delta = { { -1, 0, 1, 0 }, { 0, 1, 0, -1 } };
 
@@ -31,7 +31,7 @@ public class MazeArrivalPoint {
 			// 이동 지시 개수
 			int moveN = sc.nextInt();
 			for (int i = 0; i < moveN; i++) {
-				int dir = sc.nextInt()-1;
+				int dir = sc.nextInt() - 1;
 				int dis = sc.nextInt();
 
 				if (!(X == -1 && Y == -1)) {
@@ -42,7 +42,7 @@ public class MazeArrivalPoint {
 					// 검사
 
 					// 넘어감?
-					if (!(X >= 0 && X < N-1 && Y >= 0 && Y < N-1)) {
+					if (!(X >= 0 && X < N - 1 && Y >= 0 && Y < N - 1)) {
 						X = -1;
 						Y = -1;
 					}
@@ -59,7 +59,7 @@ public class MazeArrivalPoint {
 
 			}
 
-			System.out.println("#" + test_case + " " + (X+1) + " " + (Y+1));
+			System.out.println("#" + test_case + " " + (X + 1) + " " + (Y + 1));
 		}
 	}
 
