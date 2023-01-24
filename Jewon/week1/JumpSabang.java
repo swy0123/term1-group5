@@ -56,12 +56,12 @@ public class JumpSabang {
 				sum -= 1000;
 
 				for (; 0 != player[i][2]; player[i][2]--) {
-					int mapX = player[i][0];
-					int mapY = player[i][1];
+					//int mapX = player[i][0];
+					//int mapY = player[i][1];
 					//int temp = map[player[i][0]][player[i][1]];
-					int temp = map[mapX][mapY];
-					int dir = temp / 10;
-					int dis = temp % 10;
+					//int temp = map[mapX][mapY];
+					int dir = map[player[i][0]][player[i][1]] / 10;
+					int dis = map[player[i][0]][player[i][1]] % 10;
 
 					player[i][0] = player[i][0] + (deltaY[dir - 1] * dis);
 					player[i][1] = player[i][1] + (deltaX[dir - 1] * dis);
