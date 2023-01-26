@@ -2,7 +2,7 @@ package week1;
 
 import java.util.Scanner;
 
-// 선을 밟아도 넘어가는건가?
+
 
 public class MazeArrivalPoint {
 
@@ -20,7 +20,7 @@ public class MazeArrivalPoint {
 			int X = sc.nextInt() - 1; // 시작지점
 			int Y = sc.nextInt() - 1; // 시작지점
 			int jumperN = sc.nextInt(); // 점퍼 개수
-
+			
 			// 점퍼 좌표
 			int[][] jumps = new int[jumperN][2];
 			for (int i = 0; i < jumperN; i++) {

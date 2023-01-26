@@ -12,7 +12,7 @@ public class Test5_황제원 {
 //		int T = sc.nextInt();
 //		String msg = sc.next();
 //		Stack<Character> stk = new Stack<Character>();
-		
+
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int T = Integer.parseInt(br.readLine());
 		char[] ans = new char[T];
@@ -38,7 +38,7 @@ public class Test5_황제원 {
 
 				// 1개 이하 만 다른가
 				if (err < 2) {
-					//stk.add(chars[j]);
+					// stk.add(chars[j]);
 					ans[midx] = chars[j];
 					midx++;
 				}
@@ -50,7 +50,7 @@ public class Test5_황제원 {
 				return;
 			}
 		}
-		
+
 		// 출력
 		for (int i = 0; i < midx; i++) {
 			System.out.print(ans[i]);
