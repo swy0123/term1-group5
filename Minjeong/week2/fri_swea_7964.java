@@ -23,9 +23,7 @@ public class Solution {
 			
 			int cnt = 0, res = 0;
 			for (int i = 0; i < cityCnt + 2; i++) {
-				if (map[i] == 1) {
-					cnt = 0;
-				}
+				if (map[i] == 1) cnt = 0;
 				else {
 					cnt++;
 					if(cnt == d) {
