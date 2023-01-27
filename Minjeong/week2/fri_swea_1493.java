@@ -3,7 +3,7 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Solution {
-	private static final int MAX_VAL = 5000;
+	private static final int MAX_VAL = 1000;
 
 	public static void main(String[] args) throws Exception {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -16,8 +16,7 @@ public class Solution {
 			int q = Integer.parseInt(st.nextToken());
 			
 			int[] nums = {p, q};
-			int val;
-			int tmp, x = 0, y = 0;
+			int val, tmp, x = 0, y = 0;
 			
 			for (int num : nums) {
 				val = 1;
