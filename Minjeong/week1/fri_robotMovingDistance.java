@@ -1,9 +1,6 @@
-package com.ssafy.k_practice;
-
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
-import java.io.FileInputStream;
 
 class Pair {
 	public int x;
