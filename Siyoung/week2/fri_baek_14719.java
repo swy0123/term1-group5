@@ -2,7 +2,7 @@ package assign;
 
 import java.util.Scanner;
 /**
- * 백준 [골드5] 14719 : 창고다각형
+ * 백준 [골드5] 14719 : 빗물
  * @author SSAFY
  *
  */
