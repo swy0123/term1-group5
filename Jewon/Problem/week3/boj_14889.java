@@ -60,7 +60,7 @@ public class boj_14889 {
 
 			// team power
 			dfsl(lteam, 0, 0);
-
+			
 			dfss(steam, 0, 0);
 
 			int val = Math.abs(spower - lpower);
