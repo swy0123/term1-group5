@@ -34,6 +34,9 @@ public class BEAK_2304 {
 
 		});
 
+		// Applying Labda + 레퍼런스 추정 
+		//Arrays.sort(list, (o1,o2) -> Integer.compare(o1[0], o2[0]));
+		
 		int maxval = 0, maxidx = 0;
 		for (int i = 0; i < list.length; i++) {
 			if (list[i][1] > maxval) {
