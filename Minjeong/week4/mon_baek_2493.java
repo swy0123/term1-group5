@@ -30,19 +30,17 @@ public class Main {
         }
         
         boolean flag = false;
-        while (!s1.empty()) {
-        	Node cur;
+        while (true) {
         	if (s2.empty()) {
-        		cur = s1.pop();
-        		s2.push(cur);
+        		s2.push(s1.peek());
+        		s1.pop();
         	}
-        	else cur = s2.peek();
         	
         	if (s1.empty()) break;
         	
-        	if (s1.peek().val >= cur.val) {
+        	if (s1.peek().val >= s2.peek().val) {
         		flag = true;
-        		res[cur.idx] = s1.peek().idx + 1;
+        		res[s2.peek().idx] = s1.peek().idx + 1;
         		s2.pop();
         	}
         	else {
