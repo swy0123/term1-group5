@@ -3,7 +3,7 @@ import java.util.Scanner;
 /**
  * 
  * SWEA_1210 Ladder1 D4
- *  
+ *   
  * @author SSAFY
  *
  */
