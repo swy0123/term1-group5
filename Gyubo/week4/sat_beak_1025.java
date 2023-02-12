@@ -3,7 +3,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-public class sat_beak_1548 {
+public class sat_beak_1025 {
 
     private static int[][] table;
     private static int result = -1;
