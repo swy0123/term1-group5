@@ -4,24 +4,18 @@ import java.io.InputStreamReader;
 
 public class Main {
     static int n;
-    static String res;
     static boolean flag;
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         n = Integer.parseInt(br.readLine());
-        StringBuilder s = new StringBuilder();
-        for (int i = 0; i < n; i++) s.append(9);
-        res = s.toString();
         find(0, 0, new StringBuilder());
-        System.out.println(res);
     }
 
     private static void find(int depth, int cur, StringBuilder seq) {
         if (depth == n) {
-            if (seq.toString().compareTo(res) < 0) {
-                res = seq.toString();
-                flag = true;
-            }
+            flag = true;
+            System.out.println(seq.toString());
             return;
         }
 
@@ -49,4 +43,3 @@ public class Main {
         return false;
     }
 }
-
