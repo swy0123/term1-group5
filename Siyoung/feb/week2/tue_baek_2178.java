@@ -1,4 +1,4 @@
-package algorithm.tmp;
+package feb.week2;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -6,8 +6,10 @@ import java.io.InputStreamReader;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.StringTokenizer;
-
-public class baek_2178 {
+/*
+ * 백준 2178 미로탐색
+ */
+public class tue_baek_2178 {
 
 	static class Point{
 		int i, j, cnt;
@@ -42,7 +44,7 @@ public class baek_2178 {
 		}
 		
 		bfs(n,m);
-		System.out.println(len);
+//		System.out.println(len);
 	}
 	
 	private static void bfs(int t1, int t2) {
@@ -54,6 +56,7 @@ public class baek_2178 {
 			Point cp = q.poll();
 //			System.out.println(cp.i +" "+ cp.j+" "+cp.cnt);
 			if(cp.i == t1-1 && cp.j == t2-1) {
+				System.out.println(cp.cnt);
 				break;
 			}
 			
@@ -65,7 +68,7 @@ public class baek_2178 {
 					if(map[ni][nj] == 1 && !v[ni][nj]) {
 						v[ni][nj] = true;
 						q.add(new Point(ni, nj, cp.cnt+1));
-						len = Math.max(len, cp.cnt+1);
+//						len = Math.max(len, cp.cnt+1);
 					}
 				}
 			}
