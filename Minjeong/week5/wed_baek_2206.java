@@ -41,8 +41,9 @@ public class Main {
 			}
 		}
         bfs();
-        if (Math.min(res[n - 1][m - 1][0], res[n - 1][m - 1][1]) == Integer.MAX_VALUE) System.out.println(-1);
-        else System.out.println(Math.min(res[n - 1][m - 1][0], res[n - 1][m - 1][1]));  
+        int val = Math.min(res[n - 1][m - 1][0], res[n - 1][m - 1][1]);
+        if (val == Integer.MAX_VALUE) System.out.println(-1);
+        else System.out.println(val);
     }
 	
 	private static void bfs() {
