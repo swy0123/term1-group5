@@ -19,7 +19,7 @@ class Pair {
 public class Main {
 	static int[][] del = { { 0, 1 }, { 0, -1 }, { 1, 0 }, { -1, 0 } };
 	static int[][] map;
-	static int[][][] res;
+	static int[][][] dist;
 	static int n, m;
 	
 	public static void main(String[] args) throws Exception {
@@ -31,24 +31,26 @@ public class Main {
     	m = Integer.parseInt(st.nextToken());
     	
     	map = new int[n][m];  
-    	res = new int[n][m][2];
+    	dist = new int[n][m][2];
         for (int i = 0; i < n; i++) {
         	char[] tmp = br.readLine().toCharArray();
 			for (int j = 0; j < m; j++) {
 				map[i][j] = tmp[j] - '0';
-				res[i][j][0] = Integer.MAX_VALUE;
-				res[i][j][1] = Integer.MAX_VALUE;
+				dist[i][j][0] = Integer.MAX_VALUE;
+				dist[i][j][1] = Integer.MAX_VALUE;
 			}
 		}
+        
         bfs();
-        int val = Math.min(res[n - 1][m - 1][0], res[n - 1][m - 1][1]);
-        if (val == Integer.MAX_VALUE) System.out.println(-1);
-        else System.out.println(val);
+        
+        int res = Math.min(dist[n - 1][m - 1][0], dist[n - 1][m - 1][1]);
+        if (res == Integer.MAX_VALUE) System.out.println(-1);
+        else System.out.println(res);
     }
 	
 	private static void bfs() {
         Queue<Pair> q = new ArrayDeque<>();
-        res[0][0][0] = 1;
+        dist[0][0][0] = 1;
 		q.offer(new Pair(0, 0, false));
 		
         while (!q.isEmpty()) {
@@ -60,23 +62,20 @@ public class Main {
 				int nx = x + del[i][0];
 				int ny = y + del[i][1];
 				if (nx < 0 || nx >= n || ny < 0 || ny >= m) continue;
+				
 				if (map[nx][ny] == 0) {
-					if (wall) {
-						if (res[nx][ny][1] > res[x][y][1] + 1) {
-							res[nx][ny][1] = res[x][y][1] + 1;
-							q.offer(new Pair(nx, ny, true));
-						}
+					if (wall && dist[nx][ny][1] > dist[x][y][1] + 1) {
+						dist[nx][ny][1] = dist[x][y][1] + 1;
+						q.offer(new Pair(nx, ny, true));
 					}
-					else {
-						if (res[nx][ny][0] > res[x][y][0] + 1) {
-							res[nx][ny][0] = res[x][y][0] + 1;
-							q.offer(new Pair(nx, ny, false));
-						}
+					else if (!wall && dist[nx][ny][0] > dist[x][y][0] + 1){
+						dist[nx][ny][0] = dist[x][y][0] + 1;
+						q.offer(new Pair(nx, ny, false));
 					}
 				}
-				else if (map[nx][ny] == 1 && !wall) {
-					if (res[nx][ny][1] > res[x][y][0] + 1) {
-						res[nx][ny][1] = res[x][y][0] + 1;
+				else {
+					if (wall && dist[nx][ny][1] > dist[x][y][0] + 1) {
+						dist[nx][ny][1] = dist[x][y][0] + 1;
 						q.offer(new Pair(nx, ny, true));
 					}
 				}
