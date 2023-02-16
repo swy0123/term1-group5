@@ -8,15 +8,15 @@ import java.util.StringTokenizer;
 /*
  * 백준 17406 배열돌리기4
  */
-public class baek_17406 {
-	static int k;
+public class thu_baek_17406 {
+	static int n, m, k;
 	static int[][] order;
 	static int res = Integer.MAX_VALUE;
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
-		int n = Integer.parseInt(st.nextToken());
-		int m = Integer.parseInt(st.nextToken());
+		n = Integer.parseInt(st.nextToken());
+		m = Integer.parseInt(st.nextToken());
 		k = Integer.parseInt(st.nextToken());
 		
 		int[][] map = new int[n][m];
@@ -55,20 +55,26 @@ public class baek_17406 {
 	
 	private static void com(int[][] map, boolean[] v, int[] set, int cnt) {
 		if(cnt == k) {
-//			System.out.println(Arrays.toString(set));
+			int[][] copy = new int[n][m];
+			for (int i=0; i<map.length; i++) {
+				copy[i] = map[i].clone();
+			}
 			int sum=0;
 			int min = Integer.MAX_VALUE;
 			for (int i : set) {
-				map = rotate(map, order[i][0]-1, order[i][1]-1, order[i][2]);
+				copy = rotate(copy, order[i][0]-1, order[i][1]-1, order[i][2]);
+//				System.out.println(Arrays.toString(set));
+//				for (int[] is : copy) {
+//					System.out.println(Arrays.toString(is));
+//				}
 			}
-			for (int[] i : map) {
+			
+			for (int[] i : copy) {
 				sum = 0;
 				for (int j : i) {
 					sum+=j;
 				}
 				min = Math.min(min,  sum);
-//				System.out.println(min);
-			
 			}
 			res = Math.min(res,  min);
 			return;
