@@ -6,35 +6,35 @@ import java.util.Deque;
 import java.util.StringTokenizer;
 
 // 벽 부수고 이동하기
-class Table {
-
-    public int value;
-    public boolean chance;
-
-    public Table(int value, boolean chance) {
-        super();
-        this.value = value;
-        this.chance = chance;
-    }
-}
-
-class Point {
-
-    public int y;
-    public int x;
-    public int depth;
-    public boolean chance;
-
-    public Point(int y, int x, int depth, boolean chance) {
-        super();
-        this.y = y;
-        this.x = x;
-        this.depth = depth;
-        this.chance = chance;
-    }
-}
-
 public class wed_beak_2206 {
+
+    static class Table {
+
+        public int value;
+        public boolean chance;
+
+        public Table(int value, boolean chance) {
+            super();
+            this.value = value;
+            this.chance = chance;
+        }
+    }
+
+    static class Point {
+
+        public int y;
+        public int x;
+        public int depth;
+        public boolean chance;
+
+        public Point(int y, int x, int depth, boolean chance) {
+            super();
+            this.y = y;
+            this.x = x;
+            this.depth = depth;
+            this.chance = chance;
+        }
+    }
 
     private static final int[][] move = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
 
