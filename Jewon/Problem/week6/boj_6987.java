@@ -19,13 +19,14 @@ public class boj_6987 {
 	static int[][] arr_temp;
 	static int[][] arr;
 	static boolean flag;
+
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 //		StringTokenizer st = new StringTokenizer(br.readLine());
 //		Integer.parseInt(st.nextToken());
 		for (int round = 0; round < 4; round++) {
 			flag = false;
-			
+
 			StringTokenizer st = new StringTokenizer(br.readLine());
 			arr = new int[6][3];
 			arr_temp = new int[6][3];
@@ -39,7 +40,7 @@ public class boj_6987 {
 			}
 
 			recur(0, 1);
-			if(!flag) {
+			if (!flag) {
 				System.out.print(0 + " ");
 			}
 		}
@@ -47,40 +48,35 @@ public class boj_6987 {
 
 	private static void recur(int team1, int team2) {
 		// arr == arr_temp
-		if(team1 == 5 && check()) {
+		if (flag) {
+			return;
+		}
+		
+		if (team1 == 5 && check()) {
 			System.out.print(1 + " ");
 			flag = true;
 			return;
 		}
-		
-		if(team1 == 5) {
+
+		if (team1 == 5) {
 			return;
 		}
-		
-		if(flag) {
-			return;
-		}
-		
-		
+
+
 		for (int i = 0; i < 3; i++) {
 			// win draw lose 처리
-			if(		// i== 0 arr_temp 의 값이 arr보다 같거나 크면 안댐
-					i == 0 && arr_temp[team1][0] < arr[team1][0] ||
-					// i == 1 team에 있는지 여부 확인
-					i == 1 && arr_temp[team1][1] < arr[team1][1] ||
-					// i == 2 team에 패배의 값도 어떻게 확인
-					i ==2 && arr_temp[team1][2] < arr[team1][2]
-					) {
+
+			if (arr_temp[team1][i] < arr[team1][i]) {
 				vs(team1, team2, i);
-				
+
 				if (team2 == 5) {
 					recur(team1 + 1, team1 + 2);
 				} else {
 					recur(team1, team2 + 1);
 				}
-				
+
 				// 처리 다시 돌리기
-				vs_back(team1, team2, i);			
+				vs_back(team1, team2, i);
 			}
 		}
 	}
@@ -88,7 +84,7 @@ public class boj_6987 {
 	private static boolean check() {
 		for (int i = 0; i < arr.length; i++) {
 			for (int j = 0; j < arr[i].length; j++) {
-				if(arr[i][j] != arr_temp[i][j]) {
+				if (arr[i][j] != arr_temp[i][j]) {
 					return false;
 				}
 			}
