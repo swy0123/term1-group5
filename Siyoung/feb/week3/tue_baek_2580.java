@@ -79,5 +79,4 @@ public class tue_baek_2580 {
 
 		return true;
 	}
-	
 }
