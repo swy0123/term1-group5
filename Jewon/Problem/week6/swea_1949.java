@@ -1,6 +1,8 @@
-package solving;
+package week6;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -16,6 +18,8 @@ import java.util.StringTokenizer;
  * @author SSAFY
  *
  */
+
+// 4번째 테스트 케이스 확인하기
 public class swea_1949 {
 	static int N;
 	static int K;
@@ -39,13 +43,17 @@ public class swea_1949 {
 
 	static List<Point> list;
 	static int ans = Integer.MIN_VALUE;
-	
+
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("src\\Input\\swea_1949.txt")));
 		StringTokenizer st = new StringTokenizer(br.readLine());
 		int T = Integer.parseInt(st.nextToken());
 
 		for (int test_case = 1; test_case <= T; test_case++) {
+			ans = Integer.MIN_VALUE;
+			maxHeight = Integer.MIN_VALUE;
+
 			st = new StringTokenizer(br.readLine());
 			list = new ArrayList();
 
@@ -75,8 +83,8 @@ public class swea_1949 {
 				// 높
 				dfs(list.get(i).row, list.get(i).col, map[list.get(i).row][list.get(i).col], 0, true);
 			}
-			
-			System.out.println(ans);
+
+			System.out.println("#" + test_case + " " + ans);
 		}
 	}
 
@@ -84,8 +92,8 @@ public class swea_1949 {
 		// 높은곳 부터 탐색하며 내려감.
 		// 아직 삽이 있으면 앞에 산을 깎아 버림
 		// 이러한 모든 경우의 수를 탐색해서 최대한 값을 탐색해야함
-		boolean flag = false;
-		
+		boolean flag = true;
+
 		for (int i = 0; i < dir.length; i++) {
 			int nr = row + dir[i][0];
 			int nc = col + dir[i][1];
@@ -93,20 +101,20 @@ public class swea_1949 {
 			if (nr >= 0 && nr < N && nc >= 0 && nc < N) {
 				if (height > map[nr][nc]) {
 					dfs(nr, nc, map[nr][nc], depth + 1, sovel);
-					flag = true;
+					flag = false;
 				} else if (sovel == true && map[nr][nc] - K < height) {
-					// map[nr][nc]  - (map[nr][nc] - height + 1)
-					dfs(nr,nc, map[nr][nc]  - (map[nr][nc] - height + 1), depth+1, !sovel);
-					flag = true;
+					// map[nr][nc] - (map[nr][nc] - height + 1)
+					dfs(nr, nc, map[nr][nc] - (map[nr][nc] - height + 1), depth + 1, !sovel);
+					flag = false;
 				}
 			}
 		}
-		
-		if(flag) {
-			System.out.println(row + " " + col);
-			ans = Math.max(ans, depth);
-		}
 
+//		if(flag) {
+////			System.out.println(row + " " + col);
+//			ans = Math.max(ans, depth+1);
+//		}
+		ans = Math.max(ans, depth + 1);
 	}
 
 }
