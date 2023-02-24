@@ -1,4 +1,3 @@
-package solving;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -46,20 +45,17 @@ public class boj_1260 {
 			adjList[from].add(to);
 			adjList[to].add(from);
 		}
-		
+
 		for (int i = 0; i < N + 1; i++) {
 			Collections.sort(adjList[i]);
 		}
-		
-//		print();
 
 		visit = new boolean[N + 1];
-		System.out.print(start + " ");
-		visit[start] = true;
 		dfs(start);
-	
+
 		System.out.println();
-		visit = new boolean[N+1];
+
+		visit = new boolean[N + 1];
 		bfs(start);
 
 	}
@@ -75,13 +71,13 @@ public class boj_1260 {
 		Queue<Integer> q = new LinkedList<Integer>();
 		visit[start] = true;
 		q.offer(start);
-		
-		while(!q.isEmpty()) {
+
+		while (!q.isEmpty()) {
 			int vertex = q.poll();
 			System.out.print(vertex + " ");
-			
+
 			for (int i = 0; i < adjList[vertex].size(); i++) {
-				if(visit[adjList[vertex].get(i)] == false) {
+				if (visit[adjList[vertex].get(i)] == false) {
 					visit[adjList[vertex].get(i)] = true;
 					q.offer(adjList[vertex].get(i));
 				}
@@ -91,10 +87,12 @@ public class boj_1260 {
 
 	private static void dfs(int start) {
 
+		System.out.print(start + " ");
+		visit[start] = true;
+
 		for (int i = 0; i < adjList[start].size(); i++) {
 			if (visit[adjList[start].get(i)] == false) {
 				visit[adjList[start].get(i)] = true;
-				System.out.print(adjList[start].get(i) + " ");
 				dfs(adjList[start].get(i));
 			}
 		}
