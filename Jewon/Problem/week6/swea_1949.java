@@ -1,4 +1,4 @@
-package week6;
+package solving;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -25,7 +25,7 @@ public class swea_1949 {
 	static int K;
 	static int[][] map;
 	static int maxHeight = Integer.MIN_VALUE;
-
+	static boolean[][] visit;
 	// 상 하 좌 우
 	static int[][] dir = { { -1, 0 }, { 1, 0 }, { 0, -1 }, { 0, 1 } };
 
@@ -60,6 +60,7 @@ public class swea_1949 {
 			N = Integer.parseInt(st.nextToken());
 			K = Integer.parseInt(st.nextToken());
 			map = new int[N][N];
+			visit = new boolean[N][N];
 
 			for (int i = 0; i < N; i++) {
 				st = new StringTokenizer(br.readLine());
@@ -80,8 +81,11 @@ public class swea_1949 {
 			}
 
 			for (int i = 0; i < list.size(); i++) {
-				// 높
-				dfs(list.get(i).row, list.get(i).col, map[list.get(i).row][list.get(i).col], 0, true);
+				int r = list.get(i).row;
+				int c = list.get(i).col;
+				visit[r][c] = true;
+				dfs(r, c, map[r][c], 0, true);
+				visit[r][c] = false;
 			}
 
 			System.out.println("#" + test_case + " " + ans);
@@ -99,21 +103,21 @@ public class swea_1949 {
 			int nc = col + dir[i][1];
 
 			if (nr >= 0 && nr < N && nc >= 0 && nc < N) {
-				if (height > map[nr][nc]) {
+				if (height > map[nr][nc] && visit[nr][nc] == false) {
+					visit[nr][nc] = true;
 					dfs(nr, nc, map[nr][nc], depth + 1, sovel);
+					visit[nr][nc] = false;
 					flag = false;
-				} else if (sovel == true && map[nr][nc] - K < height) {
+				} else if (sovel == true && map[nr][nc] - K < height && visit[nr][nc] == false) {
 					// map[nr][nc] - (map[nr][nc] - height + 1)
+					visit[nr][nc] = true;
 					dfs(nr, nc, map[nr][nc] - (map[nr][nc] - height + 1), depth + 1, !sovel);
+					visit[nr][nc] = false;
 					flag = false;
 				}
 			}
 		}
 
-//		if(flag) {
-////			System.out.println(row + " " + col);
-//			ans = Math.max(ans, depth+1);
-//		}
 		ans = Math.max(ans, depth + 1);
 	}
 
