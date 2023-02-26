@@ -93,10 +93,8 @@ public class boj_15683 {
 		Point p = cameras.get(depth);
 
 		for (int i = 0; i < camera[p.num].length; i++) { // p.num - 1 : 카메라 , camera[][]
-			fill_map(p.row, p.col, camera[p.num][i], -1);
 			list.add(i);
 			dfs(depth + 1);
-			fill_map(p.row, p.col, camera[p.num][i], 0);
 			list.remove(list.size()-1);
 		}
 
