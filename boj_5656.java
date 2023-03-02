@@ -1,4 +1,4 @@
-package solving;
+package week7;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,7 +17,8 @@ import java.util.StringTokenizer;
  */
 public class boj_5656 {
 
-	static int[][] dir = { { -1, 0 }, { 1, 0 }, { 0, -1 }, { 0, 1 } };
+	// 상 하 좌 우 
+	static int[][] dir = { { 1, 0 }, { -1, 0 }, { 0, -1 }, { 0, 1 } };
 	static int N, W, H;
 	static List<Integer>[] map;
 	static int Ans;
@@ -53,8 +54,11 @@ public class boj_5656 {
 //			print();
 			arr = new int[N];
 			combination(0);
-
-			System.out.println("#" + test_case + " " + Ans);
+			if(Ans == Integer.MAX_VALUE) {
+				System.out.println("#" + test_case + " " + 0);	
+			}else {
+				System.out.println("#" + test_case + " " + Ans);				
+			}
 		}
 
 	}
@@ -75,9 +79,9 @@ public class boj_5656 {
 			for (int i = 0; i < arr.length; i++) {
 				// 만약 떨어진 곳이 아무런 벽돌도 없다면
 				if (map_copy[arr[i]].size() == 0) {
-					continue;
+					return;
 				} else {
-					// col 의 row를 터트림
+					// 해당col의 높이에 있는 친구 삭제  arr[i] -> col
 					boom(map_copy[arr[i]].size(), arr[i]);
 				}
 
@@ -114,31 +118,32 @@ public class boj_5656 {
 
 	private static void boom(int height, int drop_col) {
 		
-		// 해당 col 아무 벽돌이 없으면 스킵
-		if (map_copy[drop_col].size() == 0 || map_copy[drop_col].size() < row) {
+		int targetIdx = map_copy[drop_col].size() - height;
+		
+		// 해당 col 아무 벽돌이 없으면 스킵 || 높이가 적으면
+		if (map_copy[drop_col].size() == 0 || map_copy[drop_col].size() < height) {
 			return;
 		}
 		
-		int targetIdx = map_copy[drop_col].size() - height;
 		
-		int temp = map_copy[drop_col].get(r_row);
+		
+		int temp = map_copy[drop_col].get(targetIdx);
 
 		if (temp == 1) {
-			map_copy[drop_col].set(r_row, 0);
+			map_copy[drop_col].set(targetIdx, 0);
 		} else if (temp > 1) {
-			map_copy[drop_col].set(r_row, 0);
+			map_copy[drop_col].set(targetIdx, 0);
 			for (int i = 1; i < temp; i++) { // range
 				for (int j = 0; j < dir.length; j++) {
-					int nr = r_row + dir[j][0] * i;
+					int nheight = height + dir[j][0] * i;
 					int nc = drop_col + dir[j][1] * i;
 
-					if (nr >= 0 && nr < H && nc >= 0 && nc < W) {
-						boom(nr, nc);
+					if (nc >= 0 && nc < W &&nheight > 0 && nheight <= map_copy[nc].size() ) {
+						boom(nheight, nc);
 					}
 				}
 			}
 		}
-
 	}
 
 	private static void print() {
