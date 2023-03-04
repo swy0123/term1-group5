@@ -71,7 +71,6 @@ public class sat_swea_1767 {
             return;
         }
 
-        boolean flag = false;
         for (int i = 0; i < vector.length; i++) {
             // 전원이 연결되거나 -> 정상 종료 -> 다음 코어 호출
             // 다른 코어에서 연결된 선이 있거나 , 다른 코어가 있거나 -> 비정상 종료 -> 다른 방향으로 탐색
@@ -96,7 +95,6 @@ public class sat_swea_1767 {
                     cy = ny;
                     cx = nx;
                     solve(table, coreList, index + 1, count + 1);
-                    flag = true;
                     break;
                 }
 
@@ -128,15 +126,5 @@ public class sat_swea_1767 {
             }
         }
         return sum;
-    }
-
-    private static void print(int[][] table) {
-        for (int i = 0; i < table.length; i++) {
-            for (int j = 0; j < table.length; j++) {
-                System.out.print(table[i][j] + " ");
-            }
-            System.out.println();
-        }
-        System.out.println();
     }
 }
