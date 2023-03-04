@@ -18,7 +18,7 @@ public class swea_14510 {
 	static int Ans;
 
 	public static void main(String[] args) throws IOException {
-//		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//		 BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedReader br = new BufferedReader(new InputStreamReader(
 				new FileInputStream("D:\\code\\Java_Practice\\Ssafy_Algorithm\\src\\swea_14510.txt")));
 		StringTokenizer st = new StringTokenizer(br.readLine());
