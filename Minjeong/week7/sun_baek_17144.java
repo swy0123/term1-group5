@@ -1,18 +1,6 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.StringTokenizer;
-
-class Pair {
-    int x;
-    int y;
-
-    public Pair(int x, int y) {
-        this.x = x;
-        this.y = y;
-    }
-}
 
 public class sun_baek_17144 {
     static int[][] map, del = { {-1, 0}, {1, 0}, {0, -1}, {0, 1} };
@@ -51,15 +39,15 @@ public class sun_baek_17144 {
                 if (map[i][j] == -1) tmp[i][j] = -1;
                 if (map[i][j] > 0) {
                     int amount = map[i][j] / 5;
-                    List<Pair> list = new ArrayList<>();
+                    int cnt = 0;
                     for (int k = 0; k < 4; k++) {
                         int nx = i + del[k][0];
                         int ny = j + del[k][1];
                         if (nx < 0 || nx >= r || ny < 0 || ny >= c || map[nx][ny] == -1) continue;
-                        list.add(new Pair(nx, ny));
+                        tmp[nx][ny] += amount;
+                        cnt++;
                     }
-                    tmp[i][j] += map[i][j] - amount * list.size();
-                    for (Pair p: list) tmp[p.x][p.y] += amount;
+                    tmp[i][j] += map[i][j] - amount * cnt;
                 }
             }
         }
