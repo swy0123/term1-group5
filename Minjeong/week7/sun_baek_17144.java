@@ -15,9 +15,8 @@ class Pair {
 }
 
 public class sun_baek_17144 {
-    static int[][] del = { {-1, 0}, {1, 0}, {0, -1}, {0, 1} };
+    static int[][] map, del = { {-1, 0}, {1, 0}, {0, -1}, {0, 1} };
     static int r, c, t;
-    static int[][] map;
 
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -37,9 +36,7 @@ public class sun_baek_17144 {
         upX--;
 
         while (t-- > 0) {
-            // 1. 미세먼지 확산
             spread();
-            // 2. 공기청정기 작동
             move(upX);
         }
 
@@ -77,19 +74,15 @@ public class sun_baek_17144 {
     private static void moveUp(int upX) {
         map[upX][0] = 0;
         int tmp = map[0][0];
-        // 상
         for (int i = 1; i < c; i++) {
             map[0][i - 1] = map[0][i];
         }
-        // 우
         for (int i = 1; i <= upX; i++) {
             map[i - 1][c - 1] = map[i][c - 1];
         }
-        // 하
         for (int i = c - 2; i >= 0; i--) {
             map[upX][i + 1] = map[upX][i];
         }
-        // 좌
         for (int i = upX - 1; i >= 0; i--) {
             map[i + 1][0] = map[i][0];
         }
@@ -101,19 +94,15 @@ public class sun_baek_17144 {
     private static void moveDown(int downX) {
         map[downX][0] = 0;
         int tmp = map[downX][c - 1];
-        // 상
         for (int i = c - 2; i >= 0; i--) {
             map[downX][i + 1] = map[downX][i];
         }
-        // 좌
         for (int i = downX + 1; i < r; i++) {
             map[i - 1][0] = map[i][0];
         }
-        // 하
         for (int i = 1; i < c; i++) {
             map[r - 1][i - 1] = map[r - 1][i];
         }
-        // 우
         for (int i = r - 2; i >= downX; i--) {
             map[i + 1][c - 1] = map[i][c - 1];
         }
@@ -130,15 +119,5 @@ public class sun_baek_17144 {
             }
         }
         return sum;
-    }
-
-    private static void print() {
-        for (int i = 0; i < r; i++) {
-            for (int j = 0; j < c; j++) {
-                System.out.print(map[i][j] + " ");
-            }
-            System.out.println();
-        }
-        System.out.println();
     }
 }
