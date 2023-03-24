@@ -58,10 +58,10 @@ public class sat_baek_17825 {
                     node.pos = 0;
                 }
                 if (check(node)) solve(totalScore + map[node.line][node.pos], cnt + 1);
-
             }
             else {
-                if (node.line == 0 || node.line == 4) {
+                if (node.line == 0 || node.line == 4
+                        || node.pos - map[node.line].length >= map[4].length) {
                     node.finished = true;
                     solve(totalScore, cnt + 1);
                     node.finished = false;
@@ -69,12 +69,7 @@ public class sat_baek_17825 {
                 else {
                     node.pos -= map[node.line].length;
                     node.line = 4;
-                    if (node.pos >= map[4].length) {
-                        node.finished = true;
-                        solve(totalScore, cnt + 1);
-                        node.finished = false;
-                    }
-                    else if (check(node)) solve(totalScore + map[node.line][node.pos], cnt + 1);
+                    if (check(node)) solve(totalScore + map[node.line][node.pos], cnt + 1);
 
                 }
             }
