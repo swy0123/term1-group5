@@ -8,7 +8,7 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.StringTokenizer;
 
-public class boj_6087 {
+public class boj_6087 { 
 	static Point startPoint, endPoint;
 	static int W, H;
 	static int curve_Ans = Integer.MAX_VALUE;
