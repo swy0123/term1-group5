@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 
+// 레이저 통신
 public class sat_baek_6087 {
     static class Node implements Comparable<Node> {
         int x;
@@ -55,14 +56,7 @@ public class sat_baek_6087 {
             Arrays.fill(cost[i], Integer.MAX_VALUE);
         }
         PriorityQueue<Node> q = new PriorityQueue<>();
-        for (int i = 0; i < 4; i++) {
-            int nx = x[0] + del[i][0];
-            int ny = y[0] + del[i][1];
-            if (nx < 0 || nx >= h || ny < 0 || ny >= w || map[nx][ny] == '*') continue;
-            q.offer(new Node(nx, ny, i, 0));
-            cost[nx][ny] = 0;
-            v[nx][ny][i] = true;
-        }
+        q.offer(new Node(x[0], y[0], -1, 0));
 
         while (!q.isEmpty()) {
             Node cur = q.poll();
@@ -76,7 +70,7 @@ public class sat_baek_6087 {
                 int ncnt = cur.cnt;
                 if (i != nd) {
                     nd = i;
-                    ncnt += 1;
+                    if (cur.d != -1) ncnt += 1;
                 }
 
                 if (cost[nx][ny] == ncnt && v[nx][ny][nd]) continue;
