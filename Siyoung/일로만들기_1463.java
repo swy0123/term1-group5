@@ -23,9 +23,6 @@ public class 일로만들기_1463 {
 			arr[i] = Math.min(arr[i], arr[i-1]+1);
 			
 		}
-		System.out.println(Arrays.toString(arr));
 		System.out.println(arr[n]);
-		
 	}
-
 }
