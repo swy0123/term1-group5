@@ -17,60 +17,73 @@ public class boj_17070 {
 	static int[][] next_dir = { { 0, 1 }, { 0, 1, 2 }, { 1, 2 } };
 	static int N;
 	static int[][] map;
-	static int[][] memo;
+	static int[][][] memo;
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
 		N = Integer.parseInt(st.nextToken());
 		map = new int[N][N];
-		memo = new int[N][N];
+		memo = new int[N][N][3];
+		
+		for (int i = 0; i < N; i++) {
+			st = new StringTokenizer(br.readLine());
+			for (int j = 0; j < N; j++) {
+				map[i][j] = Integer.parseInt(st.nextToken());
+			}
+		}
+		
 		
 		for (int i = 0; i < memo.length; i++) {
-			Arrays.fill(memo[i], -1);
+			for (int j = 0; j < memo[i].length; j++) {
+				Arrays.fill(memo[i][j], -1);
+			}
 		}
 
 		System.out.println(DFS(0, 1, 2));
-		
-		for (int i = 0; i < N; i++) {
-			System.out.println(Arrays.toString(memo[i]));
-		}
 	}
 
 	private static int DFS(int row, int col, int prev) {
 		if (row == N - 1 && col == N - 1) {
-			return memo[row][col] = 1;
+			return memo[row][col][0] = memo[row][col][1] = memo[row][col][2] = 1;
 		}
 
-		if (memo[row][col] != -1) {
-			return memo[row][col];
+		if (memo[row][col][prev] != -1) {
+			return memo[row][col][prev];
 		} else {
-			memo[row][col] = 0;
+			memo[row][col][prev] = 0;
 		}
 
 		for (int i = 0; i < next_dir[prev].length; i++) {
 			int nr = row + dir[next_dir[prev][i]][0];
 			int nc = col + dir[next_dir[prev][i]][1];
 
-			if (check(nr, nc, next_dir[prev][i])) {
-				memo[row][col] += DFS(nr, nc, next_dir[prev][i]);
+			if (check(row, col, next_dir[prev][i])) {
+				memo[row][col][prev] += DFS(nr, nc, next_dir[prev][i]);
 			}
 		}
 
-		return memo[row][col];
+		return memo[row][col][prev];
 	}
 
-	private static boolean check(int nr, int nc, int dir) {
-		if (nr >= 0 && nr < N && nc >= 0 && nc < N) {
-			if (dir != 1) {
-				if (map[nr][nc] != 1) {
-					return true;
-				}
-			} else {
-				if (map[nr][nc] != 1 && map[nr - 1][nc] != 1 && map[nr][nc - 1] != 1) {
-					return true;
+	private static boolean check(int row, int col, int prev_dir) {
+
+		if (prev_dir != 1) {
+			int nr = row + dir[prev_dir][0];
+			int nc = col + dir[prev_dir][1];
+			if (nr >= 0 && nr < N && nc >= 0 && nc < N && map[nr][nc] != 1) {
+				return true;
+			}
+		} else {
+			for (int i = 0; i < next_dir[prev_dir].length; i++) {
+				int nr = row + dir[next_dir[prev_dir][i]][0];
+				int nc = col + dir[next_dir[prev_dir][i]][1];
+				if (nr < 0 || nr >= N || nc < 0 || nc >= N || map[nr][nc] == 1) {
+					return false;
 				}
 			}
+
+			return true;
 		}
 
 		return false;
