@@ -1,66 +1,63 @@
-package test;
+package se;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class Main {
-	static class node{
-		int i, j;
-		public node(int i, int j) {
-			super();
-			this.i = i;
-			this.j = j;
-		}
-	}
-	static int n, map[][], dp[][];
+	static ArrayList<Integer> arr = new ArrayList<>();
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st;
 		
-		n = Integer.parseInt(br.readLine());
+		String text = br.readLine();
+		String pattern = br.readLine();
 		
-		map = new int[n][n];
-		for(int i=0; i<n; i++) {
-			st = new StringTokenizer(br.readLine());
-			for(int j=0; j<n; j++) {
-				map[i][j] = Integer.parseInt(st.nextToken());
+		KMP(text, pattern);
+		System.out.println(arr.size());
+		for(int i=0; i<arr.size(); i++) {
+			System.out.print(arr.get(i)+" ");
+		}
+	}
+	
+	static int[] getPi(String pattern) {
+		int[] pi = new int[pattern.length()];
+		
+		int j=0;
+		for(int i=1; i<pattern.length(); i++) {
+			while(j>0 && pattern.charAt(i)!=pattern.charAt(j)) {
+				j = pi[j-1];
+			}
+			if(pattern.charAt(i)==pattern.charAt(j)) {
+				pi[i] = ++j;
+			}
+		}
+		System.out.println(Arrays.toString(pi));
+		return pi;
+	}
+	static void KMP(String parent, String pattern) {
+		int[] table = getPi(pattern);
+		
+		int j = 0; 
+		for(int i = 0 ; i< parent.length(); i++) {
+			while(j >0 && parent.charAt(i) != pattern.charAt(j)) {
+				j = table[j - 1];
+			}
+			if(parent.charAt(i) == pattern.charAt(j)) {
+				if(j == pattern.length()-1) {
+					arr.add((i-pattern.length()+1)+1);
+					j = table[j];
+				}else {
+					j++;
+				}
 			}
 		}
 		
-		dp = new int[n][n];
-//		dp[0][0] = 1;
-//		for(int i=0; i<n; i++) {
-//			for(int j=0; j<n; j++) {
-//				int ni = i+1;
-//				int nj = j+1;
-//				if(ni<n) {
-//					if(map[ni][j]>map[i][j]) dp[ni][j] = Math.max(dp[ni][j], dp[i][j]+1);
-//					else dp[ni][j] = dp[i][j];
-//				}
-//				if(nj<n) {
-//					if(map[i][nj]>map[i][j]) dp[i][nj] = Math.max(dp[i][nj], dp[i][j]+1);
-//					else dp[i][nj] = dp[i][j];
-//				}
-//			}
-//		}
-//		for (int[] is : dp) {
-//			System.out.println(Arrays.toString(is));
-//		}
-		
-		System.out.println(dp[n-1][n-1]);
 	}
 	
-	private static int solve(node cn) {
-		if(cn.i==0 && cn.j==0) {
-			return 1;
-		}
-		
-		
-		return 0;
-		
-	}
 }
+
