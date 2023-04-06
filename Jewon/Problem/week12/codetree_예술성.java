@@ -1,4 +1,4 @@
-package algorithm;
+package week12;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -33,6 +33,8 @@ public class codetree_예술성 {
 	static int[][] group;
 	static boolean[][] group_visit;
 
+	static int Ans = 0;
+
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
@@ -46,11 +48,10 @@ public class codetree_예술성 {
 			}
 		}
 
-		for (int round = 0; round < 3; round++) {
+		for (int round = 0; round < 4; round++) {
 			// init
 			int[][] group = new int[N][N];
 			group_visit = new boolean[N][N];
-
 			List<Point> start_p = new ArrayList<>();
 			// group labeling
 			int cnt = 1;
@@ -64,21 +65,74 @@ public class codetree_예술성 {
 			}
 
 			// find value;
+			int[] group_num = new int[cnt];
+			int[] group_cnt = new int[cnt];
 			int[][] value_list = new int[cnt][cnt];
-			calc(group, value_list, start_p);
+			calc(group, value_list, start_p, group_cnt, group_num);
+
+//			System.out.println(Arrays.toString(group_num));
+//			print(value_list);
+
+			// calc Artistry
+			int Artistry = 0; // warning long
+
+			for (int i = 1; i < cnt; i++) {
+				for (int j = i + 1; j < cnt; j++) {
+					if (value_list[i][j] != 0) {
+						Artistry += (group_cnt[i] + group_cnt[j]) * group_num[i] * group_num[j] * value_list[i][j];
+					}
+				}
+			}
 			
-			System.out.println();
-			print(value_list);
+			
+//			System.out.println(Artistry);
+			Ans += Artistry;
+			// 회전
+			if(round == 3) {
+				break;
+			}
+			map = rotate(map);
+//			print(map);
 		}
+			System.out.println(Ans);
 	}
 
-	private static void calc(int[][] group, int[][] value_list, List<Point> start_p) {
+	private static int[][] rotate(int[][] map) {
+		// +
+		int[][] temp = new int[N][N];
+		int mid = N / 2;
+
+		for (int row = 0; row < N; row++) {
+			temp[mid][row] = map[row][mid];
+		}
+
+		for (int col = 0; col < N; col++) {
+			int val = mid - col;
+			temp[mid + val][col + val] = map[mid][col];
+		}
+
+		// [] [] [] []
+		// 0 >= ~ < N/2 N/2+1 ~ N
+		for (int row = 0; row < N / 2; row++) {
+			for (int col = 0; col < N / 2; col++) {
+				temp[col][(N / 2 - 1) - row] = map[row][col];
+				temp[col][(N / 2 - 1) - row + (N / 2 + 1)] = map[row][col + (N / 2 + 1)];
+				temp[col + (N / 2 + 1)][(N / 2 - 1) - row] = map[row + (N / 2 + 1)][col];
+				temp[col + (N / 2 + 1)][(N / 2 - 1) - row + (N / 2 + 1)] = map[row + (N / 2 + 1)][col + (N / 2 + 1)];
+			}
+		}
+
+		return temp;
+	}
+
+	private static void calc(int[][] group, int[][] value_list, List<Point> start_p, int[] group_cnt, int[] group_num) {
 		int size = start_p.size();
 
 		for (int round = 0; round < size; round++) {
 			boolean[][] visit = new boolean[N][N];
-
+			int cnt = 1;
 			Point start = start_p.get(round);
+			group_num[round + 1] = map[start.row][start.col];
 			Queue<Point> q = new LinkedList<>();
 			visit[start.row][start.col] = true;
 			q.offer(start);
@@ -92,22 +146,24 @@ public class codetree_예술성 {
 
 					if (nr >= 0 && nr < N && nc >= 0 && nc < N && !visit[nr][nc]) {
 						// round + 1 인가?
-						
 
 						if (group[nr][nc] == round + 1) {
 							visit[nr][nc] = true;
+							cnt++;
 							q.offer(new Point(nr, nc));
-						}else {
-							value_list[round+1][group[nr][nc]]++;
+						} else {
+							value_list[round + 1][group[nr][nc]]++;
 						}
 						// 아니면
 					}
 				}
 			}
+			group_cnt[round + 1] = cnt;
 		}
 	}
 
 	private static void print(int[][] map) {
+		System.out.println();
 		for (int row = 0; row < map.length; row++) {
 			System.out.println(Arrays.toString(map[row]));
 		}
